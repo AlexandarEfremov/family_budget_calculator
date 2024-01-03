@@ -3,16 +3,23 @@ passive_dict = {"Bills": 0, "Car": 0, "Kids": 0, "Food": 0, "Other": 0}
 
 import time
 
-starting_question = input("Are you adding income or expenditure?\n")
+
+def starting_question():
+    while True:
+        answer = input("Are you adding income or expenditure?\n")
+        if answer.lower() == "expenditure" or answer.lower() == "income":
+            return answer.lower()
+        else:
+            print("Invalid input, try again.")
 
 
 def income():
     categories = ["1.Salary", "2.Rent", "3.Italki", "4.Axel"]
     print("Please choose the category by selecting the number.\n")
-    print()
     time.sleep(2)
     for item in categories:
         print(item, end="   ")
+        print()
         time.sleep(1)
     category_input = int(input())
     if category_input == 1:
@@ -54,7 +61,7 @@ def expenditure():
         passive_dict["Other"] += other_amount
 
 
-if starting_question.lower().strip() == "income":
+if starting_question() == "income":
     income()
     while True:
         question = input("Would you like to add more? y/n\n")
@@ -74,7 +81,7 @@ if starting_question.lower().strip() == "income":
         exit()
 
 
-elif starting_question.lower().strip() == "expenditure":
+elif starting_question() == "expenditure":
     expenditure()
     while True:
         question = input("Would you like to add more? y/n\n")
@@ -92,5 +99,5 @@ elif starting_question.lower().strip() == "expenditure":
         print(income_dict)
         print(passive_dict)
         exit()
-
-print(income_dict)
+else:
+    print("Wrong input, try again")
