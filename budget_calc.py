@@ -20,6 +20,11 @@ clearing()
 answer = starting_question()
 
 
+def saldo_calc(dictionary):
+    total_income_sum = sum(dictionary.values())
+    return total_income_sum
+
+
 def income():
     categories = ["1.Salary", "2.Rent", "3.Italki", "4.Axel"]
     print("Please choose the category by selecting the number.\n")
@@ -123,8 +128,9 @@ if answer == "income":
                 print("Invalid input, try again:")
 
     else:
-        print(income_dict)
-        print(passive_dict)
+        print(f"Total income: {saldo_calc(income_dict)} BGN")
+        breakdown = list((x, y) for x, y in income_dict.items())
+        print(breakdown)
         exit()
 
 
@@ -153,9 +159,11 @@ elif answer == "expense":
             else:
                 print("Invalid input, try again:")
     else:
+        saldo_calc(passive_dict)
         print(income_dict)
         print(passive_dict)
         exit()
+
 
 print(income_dict)
 print(passive_dict)
