@@ -2,9 +2,11 @@ income_dict = {"Salary": 0, "Rent": 0, "Italki": 0, "Axel": 0}
 passive_dict = {"Bills": 0, "Car": 0, "Kids": 0, "Food": 0, "Other": 0}
 
 import time
+import sys, subprocess
 
 
-# expenditure wrongly goes into a loop, this needs to be fixed, income sometimes returns invalid input
+def clearing():
+    subprocess.run("clear", shell=True)
 def starting_question():
     while True:
         answer = input("Are you adding income or expense?\n")
@@ -14,6 +16,7 @@ def starting_question():
             print("Invalid input, try again.")
 
 
+clearing()
 answer = starting_question()
 
 
@@ -23,9 +26,10 @@ def income():
     time.sleep(2)
     for item in categories:
         print(item, end="   ")
-        print()
         time.sleep(1)
+    print()
     category_input = int(input())
+    clearing()
     if category_input == 1:
         salary_amount = float(input("How much salary did you get?\n"))
         income_dict["Salary"] += salary_amount
@@ -47,6 +51,7 @@ def expenditure():
     for item in categories:
         print(item, end="   ")
         time.sleep(1)
+    print()
     category_input = int(input())
     if category_input == 1:
         bill_amount = float(input("Please add the amount of bills paid.\n"))
@@ -69,6 +74,7 @@ if answer == "income":
     income()
     while True:
         question = input("Would you like to add more? y/n\n")
+        clearing()
         if question.lower().strip() == "y" or question.lower().strip() == "yes":
             income()
         elif question.lower().strip() == "n" or question.lower().strip() == "no":
@@ -89,6 +95,7 @@ elif answer == "expense":
     expenditure()
     while True:
         question = input("Would you like to add more? y/n\n")
+        clearing()
         if question.lower().strip() == "y" or question.lower().strip() == "yes":
             expenditure()
         elif question.lower().strip() == "n" or question.lower().strip() == "no":
