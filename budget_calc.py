@@ -4,13 +4,17 @@ passive_dict = {"Bills": 0, "Car": 0, "Kids": 0, "Food": 0, "Other": 0}
 import time
 
 
+# expenditure wrongly goes into a loop, this needs to be fixed, income sometimes returns invalid input
 def starting_question():
     while True:
-        answer = input("Are you adding income or expenditure?\n")
-        if answer.lower() == "expenditure" or answer.lower() == "income":
+        answer = input("Are you adding income or expense?\n")
+        if answer.lower() == "expense" or answer.lower() == "income":
             return answer.lower()
         else:
             print("Invalid input, try again.")
+
+
+answer = starting_question()
 
 
 def income():
@@ -61,7 +65,7 @@ def expenditure():
         passive_dict["Other"] += other_amount
 
 
-if starting_question() == "income":
+if answer == "income":
     income()
     while True:
         question = input("Would you like to add more? y/n\n")
@@ -81,7 +85,7 @@ if starting_question() == "income":
         exit()
 
 
-elif starting_question() == "expenditure":
+elif answer == "expense":
     expenditure()
     while True:
         question = input("Would you like to add more? y/n\n")
@@ -99,5 +103,4 @@ elif starting_question() == "expenditure":
         print(income_dict)
         print(passive_dict)
         exit()
-else:
-    print("Wrong input, try again")
+
