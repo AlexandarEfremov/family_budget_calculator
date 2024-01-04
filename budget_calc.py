@@ -33,15 +33,23 @@ def income():
     if category_input == 1:
         salary_amount = float(input("How much salary did you get?\n"))
         income_dict["Salary"] += salary_amount
+        print(f"{salary_amount:.2f} BGN added. "
+              f"New total: {income_dict['Salary']:.2f}")
     elif category_input == 2:
         rent_amount = float(input("How much rent would you like to add?\n"))
         income_dict["Rent"] += rent_amount
+        print(f"{rent_amount:.2f} BGN added. "
+              f"New total: {income_dict['Rent']:.2f}")
     elif category_input == 3:
         italki_amount = float(input("How much did you make on Italki?\n"))
         income_dict["Italki"] += italki_amount
+        print(f"{italki_amount:.2f} BGN added. "
+              f"New total: {income_dict['Italki']:.2f}")
     elif category_input == 4:
         axel_amount = float(input("How much did Axel pay you?\n"))
         income_dict["Axel"] += axel_amount
+        print(f"{axel_amount:.2f} BGN added. "
+              f"New total: {income_dict['Axel']:.2f}")
 
 
 def expenditure():
@@ -56,18 +64,28 @@ def expenditure():
     if category_input == 1:
         bill_amount = float(input("Please add the amount of bills paid.\n"))
         passive_dict["Bills"] += bill_amount
+        print(f"{bill_amount:.2f} BGN added. "
+              f"New total: {passive_dict['Bills']:.2f}")
     elif category_input == 2:
         car_amount = float(input("How much did you spend on the car?\n"))
         passive_dict["Car"] += car_amount
+        print(f"{car_amount:.2f} BGN added. "
+              f"New total: {passive_dict['Car']:.2f}")
     elif category_input == 3:
         kids_amount = float(input("How much did you spend on the kids?\n"))
         passive_dict["Kids"] += kids_amount
+        print(f"{kids_amount:.2f} BGN added. "
+              f"New total: {passive_dict['Kids']:.2f}")
     elif category_input == 4:
         food_amount = float(input("How much did you spend on food?\n"))
         passive_dict["Food"] += food_amount
+        print(f"{food_amount:.2f} BGN added. "
+              f"New total: {passive_dict['Food']:.2f}")
     elif category_input == 5:
         other_amount = float(input("How much did you pay for other expenditures?\n"))
         passive_dict["Other"] += other_amount
+        print(f"{other_amount:.2f} BGN added. "
+              f"New total: {passive_dict['Other']:.2f}")
 
 
 if answer == "income":
