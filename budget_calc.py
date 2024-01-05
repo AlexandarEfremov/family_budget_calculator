@@ -4,7 +4,6 @@ passive_dict = {"Bills": 0, "Car": 0, "Kids": 0, "Food": 0, "Other": 0}
 import time
 import sys, subprocess
 
-
 def clearing():
     subprocess.run("clear", shell=True)
 def starting_question():
@@ -21,8 +20,8 @@ answer = starting_question()
 
 
 def saldo_calc(dictionary):
-    total_income_sum = sum(dictionary.values())
-    return total_income_sum
+    total_sum = sum(dictionary.values())
+    return total_sum
 
 
 def income():
@@ -105,7 +104,7 @@ def expenditure():
 if answer == "income":
     income()
     while True:
-        question = input("Would you like to add more? y/n\n")
+        question = input("Would you like to add more? (y/n)\n")
         clearing()
         if question.lower().strip() == "y" or question.lower().strip() == "yes":
             income()
@@ -114,11 +113,11 @@ if answer == "income":
         else:
             print("Invalid input, try again:")
 
-    quest_two = input("Would you like to add expenditures or exit program? Add/Exit\n")
+    quest_two = input("Would you like to add expenditures or exit program? (Add/Exit)\n")
     if quest_two.lower().strip() == "add":
         expenditure()
         while True:
-            question = input("Would you like to add more? y/n\n")
+            question = input("Would you like to add more? (y/n)\n")
             clearing()
             if question.lower().strip() == "y" or question.lower().strip() == "yes":
                 expenditure()
@@ -126,18 +125,24 @@ if answer == "income":
                 break
             else:
                 print("Invalid input, try again:")
-
-    else:
-        print(f"Total income: {saldo_calc(income_dict)} BGN")
-        breakdown = list((x, y) for x, y in income_dict.items())
-        print(breakdown)
-        exit()
+        quest_two = input("Would you like to add income or exit program? (Add/Exit)\n")
+        if quest_two.lower().strip() == "add":
+            income()
+            while True:
+                question = input("Would you like to add more? (y/n)\n")
+                clearing()
+                if question.lower().strip() == "y" or question.lower().strip() == "yes":
+                    income()
+                elif question.lower().strip() == "n" or question.lower().strip() == "no":
+                    break
+                else:
+                    print("Invalid input, try again:")
 
 
 elif answer == "expense":
     expenditure()
     while True:
-        question = input("Would you like to add more? y/n\n")
+        question = input("Would you like to add more? (y/n)\n")
         clearing()
         if question.lower().strip() == "y" or question.lower().strip() == "yes":
             expenditure()
@@ -146,11 +151,11 @@ elif answer == "expense":
         else:
             print("Invalid input, try again:")
 
-    quest_two = input("Would you like to add income or exit program? Add/Exit\n")
+    quest_two = input("Would you like to add income or exit program? (Add/Exit)\n")
     if quest_two.lower().strip() == "add":
         income()
         while True:
-            question = input("Would you like to add more? y/n\n")
+            question = input("Would you like to add more? (y/n)\n")
             clearing()
             if question.lower().strip() == "y" or question.lower().strip() == "yes":
                 income()
@@ -158,12 +163,13 @@ elif answer == "expense":
                 break
             else:
                 print("Invalid input, try again:")
-    else:
-        saldo_calc(passive_dict)
-        print(income_dict)
-        print(passive_dict)
-        exit()
 
-
-print(income_dict)
-print(passive_dict)
+clearing()
+print(f"Total income: {saldo_calc(income_dict):.2f} BGN")
+breakdown = list(f"{x}: {y:.2f}" for x, y in income_dict.items())
+print(", ".join(breakdown))
+print()
+print(f"Total expenses: {saldo_calc(passive_dict):.2f} BGN")
+breakdown_passive = list(f"{x}: {y:.2f}" for x, y in passive_dict.items())
+print(", ".join(breakdown_passive))
+exit()
