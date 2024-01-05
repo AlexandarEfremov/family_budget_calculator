@@ -24,6 +24,18 @@ def saldo_calc(dictionary):
     return total_sum
 
 
+def net_balance(inflow, outflow):
+    inflow_sum = sum(inflow.values())
+    outflow_sum = sum(outflow.values())
+    if inflow_sum > outflow_sum:
+        net_positive = inflow_sum - outflow_sum
+        result = f"\033[{92}mYour balance is {net_positive}\033[0m."
+        return result
+    else:
+        net_negative = inflow_sum - outflow_sum
+        second_result = f"\033[{91}mYou're {net_negative} in debt.\033[0m"
+        return second_result
+
 def income():
     categories = ["1.Salary", "2.Rent", "3.Italki", "4.Axel"]
     print("Please choose the category by selecting the number.\n")
@@ -172,4 +184,10 @@ print()
 print(f"Total expenses: {saldo_calc(passive_dict):.2f} BGN")
 breakdown_passive = list(f"{x}: {y:.2f}" for x, y in passive_dict.items())
 print(", ".join(breakdown_passive))
-exit()
+
+time.sleep(3)
+clearing()
+print()
+print("Netto balance:")
+print()
+print(net_balance(income_dict, passive_dict))
