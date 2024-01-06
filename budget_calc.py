@@ -2,16 +2,15 @@ income_dict = {"Salary": 0, "Rent": 0, "Italki": 0, "Axel": 0}
 passive_dict = {"Bills": 0, "Car": 0, "Kids": 0, "Food": 0, "Other": 0}
 
 import time
-import sys, subprocess
-
-
+import subprocess
+final_answer = False
 def clearing():
     subprocess.run("clear", shell=True)
 
 
 def starting_question():
     while True:
-        answer = input("Are you adding income or expense?\n")
+        answer = input("Would you like to add income or expense?\n")
         if answer.lower() == "expense" or answer.lower() == "income":
             return answer.lower()
         else:
@@ -75,34 +74,6 @@ def income():
         print(f"{axel_amount:.2f} BGN added. "
               f"New total Axel amount: {income_dict['Axel']:.2f}")
 
-
-def first_question(income_or_expense):
-    while True:
-        question = input("Would you like to add more? (y/n)\n")
-        clearing()
-        if question.lower().strip() == "y" or question.lower().strip() == "yes":
-            income_or_expense()
-        elif question.lower().strip() == "n" or question.lower().strip() == "no":
-            break
-        else:
-            print("Invalid input, try again:")
-
-
-def second_question(income_or_expenditure, keyword):
-    quest_two = input(f"Would you like to add {keyword} or exit program? (Add/Exit)\n")
-    if quest_two.lower().strip() == "add":
-        income_or_expenditure()
-        while True:
-            question = input("Would you like to add more? (y/n)\n")
-            clearing()
-            if question.lower().strip() == "y" or question.lower().strip() == "yes":
-                income_or_expenditure()
-            elif question.lower().strip() == "n" or question.lower().strip() == "no":
-                break
-            else:
-                print("Invalid input, try again:")
-
-
 def expenditure():
     categories = ["1.Bills", "2.Car", "3.Kids", "4.Food", "5.Other"]
     print("Please choose the category by selecting the number.\n")
@@ -143,7 +114,49 @@ def expenditure():
         print(f"{other_amount:.2income_or_expendituref} BGN added. "
               f"New total other expenses: {passive_dict['Other']:.2f}")
 
+def first_question(income_or_expense):
+    while True:
+        question = input("Would you like to add more? (y/n)\n")
+        clearing()
+        if question.lower().strip() == "y" or question.lower().strip() == "yes":
+            income_or_expense()
+        elif question.lower().strip() == "n" or question.lower().strip() == "no":
+            break
+        else:
+            print("Invalid input, try again:")
 
+
+def second_question(income_or_expenditure, keyword):
+    quest_two = input(f"Would you like to add {keyword} or exit program? (Add/Exit)\n")
+    if quest_two.lower().strip() == "add":
+        income_or_expenditure()
+        while True:
+            question = input("Would you like to add more? (y/n)\n")
+            clearing()
+            if question.lower().strip() == "y" or question.lower().strip() == "yes":
+                income_or_expenditure()
+            elif question.lower().strip() == "n" or question.lower().strip() == "no":
+                break
+            else:
+                print("Invalid input, try again:")
+    elif quest_two.lower().strip() == "exit":
+        return
+    else:
+        print("Invalid input, try again:")
+
+def final_question():
+    ask = int(input("""Please choose from the following:
+    1. To add income.
+    2. To add expenses.
+    3. To exit program."""))
+
+    if ask == 1:
+        return income()
+    elif ask == 2:
+        return expenditure()
+    else:
+        final_answer = True
+        return final_answer
 if answer == "income":
     income()
     first_question(income)
