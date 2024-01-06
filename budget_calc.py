@@ -3,7 +3,6 @@ passive_dict = {"Bills": 0, "Car": 0, "Kids": 0, "Food": 0, "Other": 0}
 
 import time
 import subprocess
-final_answer = False
 def clearing():
     subprocess.run("clear", shell=True)
 
@@ -42,10 +41,10 @@ def net_balance(inflow, outflow):
 def income():
     categories = ["1.Salary", "2.Rent", "3.Italki", "4.Axel"]
     print("Please choose the category by selecting the number.\n")
-    time.sleep(2)
+    time.sleep(1)
     for item in categories:
         print(item, end="   ")
-        time.sleep(1)
+        time.sleep(0.5)
     print()
     category_input = int(input())
     clearing()
@@ -60,7 +59,7 @@ def income():
         income_dict["Rent"] += rent_amount
         print()
         print(f"{rent_amount:.2f} BGN added. "
-              f"New total ren amount: {income_dict['Rent']:.2f}")
+              f"New total rent amount: {income_dict['Rent']:.2f}")
     elif category_input == 3:
         italki_amount = float(input("How much did you make on Italki?\n"))
         income_dict["Italki"] += italki_amount
@@ -77,10 +76,10 @@ def income():
 def expenditure():
     categories = ["1.Bills", "2.Car", "3.Kids", "4.Food", "5.Other"]
     print("Please choose the category by selecting the number.\n")
-    time.sleep(2)
+    time.sleep(1)
     for item in categories:
         print(item, end="   ")
-        time.sleep(1)
+        time.sleep(0.5)
     print()
     category_input = int(input())
     if category_input == 1:
@@ -111,7 +110,7 @@ def expenditure():
         other_amount = float(input("How much did you pay for other expenditures?\n"))
         passive_dict["Other"] += other_amount
         print()
-        print(f"{other_amount:.2income_or_expendituref} BGN added. "
+        print(f"{other_amount:.2} BGN added. "
               f"New total other expenses: {passive_dict['Other']:.2f}")
 
 def first_question(income_or_expense):
@@ -146,17 +145,16 @@ def second_question(income_or_expenditure, keyword):
 
 def final_question():
     ask = int(input("""Please choose from the following:
-    1. To add income.
-    2. To add expenses.
-    3. To exit program."""))
+1. To add income.
+2. To add expenses.
+3. To exit program.\n"""))
 
     if ask == 1:
         return income()
     elif ask == 2:
         return expenditure()
     else:
-        final_answer = True
-        return final_answer
+        return 3
 if answer == "income":
     income()
     first_question(income)
@@ -166,6 +164,12 @@ elif answer == "expense":
     expenditure()
     first_question(expenditure)
     second_question(income, "income")
+
+while True:
+    clearing()
+    answer = final_question()
+    if answer == 3:
+        break
 
 clearing()
 print(f"Total income: {saldo_calc(income_dict):.2f} BGN")
