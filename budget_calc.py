@@ -3,6 +3,10 @@ passive_dict = {"Bills": 0, "Car": 0, "Kids": 0, "Food": 0, "Other": 0}
 
 import time
 import subprocess
+
+
+exit_command = False
+
 def clearing():
     subprocess.run("clear", shell=True)
 
@@ -73,6 +77,7 @@ def income():
         print(f"{axel_amount:.2f} BGN added. "
               f"New total Axel amount: {income_dict['Axel']:.2f}")
 
+
 def expenditure():
     categories = ["1.Bills", "2.Car", "3.Kids", "4.Food", "5.Other"]
     print("Please choose the category by selecting the number.\n")
@@ -113,6 +118,7 @@ def expenditure():
         print(f"{other_amount:.2} BGN added. "
               f"New total other expenses: {passive_dict['Other']:.2f}")
 
+
 def first_question(income_or_expense):
     while True:
         question = input("Would you like to add more? (y/n)\n")
@@ -126,6 +132,7 @@ def first_question(income_or_expense):
 
 
 def second_question(income_or_expenditure, keyword):
+    global exit_command
     quest_two = input(f"Would you like to add {keyword} or exit program? (Add/Exit)\n")
     if quest_two.lower().strip() == "add":
         income_or_expenditure()
@@ -139,9 +146,11 @@ def second_question(income_or_expenditure, keyword):
             else:
                 print("Invalid input, try again:")
     elif quest_two.lower().strip() == "exit":
-        return
+        exit_command = True
+        return exit_command
     else:
         print("Invalid input, try again:")
+
 
 def final_question():
     ask = int(input("""Please choose from the following:
@@ -155,6 +164,8 @@ def final_question():
         return expenditure()
     else:
         return 3
+
+
 if answer == "income":
     income()
     first_question(income)
@@ -165,11 +176,12 @@ elif answer == "expense":
     first_question(expenditure)
     second_question(income, "income")
 
-while True:
-    clearing()
-    answer = final_question()
-    if answer == 3:
-        break
+if exit_command is not True:
+    while True:
+        clearing()
+        answer = final_question()
+        if answer == 3:
+            break
 
 clearing()
 print(f"Total income: {saldo_calc(income_dict):.2f} BGN")
