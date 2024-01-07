@@ -119,6 +119,7 @@ def expenditure():
               f"New total bills expenses: {passive_dict['Other']:.2f} --- Total expenses {sum(passive_dict.values()):.2f}\033[0m")
 
 
+
 def first_question(income_or_expense):
     while True:
         question = input("Would you like to add more? (y/n)\n")
