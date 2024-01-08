@@ -181,6 +181,7 @@ if exit_command is not True:
     while True:
         clearing()
         answer = final_question()
+        time.sleep(2)
         if answer == 3:
             break
 
