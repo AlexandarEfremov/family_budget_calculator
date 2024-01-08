@@ -1,3 +1,10 @@
+import sqlite3
+connection = sqlite3.connect("family_calculator.db")
+cursor = connection.cursor()
+
+cursor.execute('''CREATE TABLE IF NOT EXISTS income_dict (key TEXT PRIMARY KEY, value TEXT)''')
+cursor.execute('''CREATE TABLE IF NOT EXISTS passive_dict (key TEXT PRIMARY KEY, value TEXT)''')
+
 income_dict = {"Salary": 0, "Rent": 0, "Italki": 0, "Axel": 0}
 passive_dict = {"Bills": 0, "Car": 0, "Kids": 0, "Food": 0, "Other": 0}
 
@@ -32,7 +39,7 @@ def saldo_calc(dictionary):
 def net_balance(inflow, outflow):
     inflow_sum = sum(inflow.values())
     outflow_sum = sum(outflow.values())
-    if inflow_sum > outflow_sum:
+    if inflow_sum > outflow_sum or abs(inflow_sum - outflow_sum) == 0:
         net_positive = inflow_sum - outflow_sum
         result = f"\033[{92}mYour balance is {net_positive:.2f} BGN\033[0m."
         return result
@@ -200,3 +207,13 @@ if enter_command == "":
     print("Net balance:")
     print()
     print(net_balance(income_dict, passive_dict))
+
+
+for key, value in income_dict.items():
+    cursor.execute('INSERT OR REPLACE INTO income_dict (key, value) VALUES (?, ?)', (key, str(value)))
+
+for key, value in passive_dict.items():
+    cursor.execute('INSERT OR REPLACE INTO passive_dict (key, value) VALUES (?, ?)', (key, str(value)))
+
+connection.commit()
+connection.close()
